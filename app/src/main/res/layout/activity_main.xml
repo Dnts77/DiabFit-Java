@@ -3,18 +3,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
->
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/aqua"
         android:text="DiabFit"
         android:textAlignment="center"
-        android:textSize="28dp"
         android:textColor="@color/white"
-        android:background="@color/aqua"
+        android:textSize="28sp"
 
- />
+        />
+
 
 </LinearLayout>
