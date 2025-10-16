@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/aqua"
+        android:text="Crie seu Perfil!"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/poppins"/>
+    <EditText
+        android:id="@+id/txtCADNome"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp"
+        />
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:text="Insira seu nome:"
+        android:layout_marginLeft="130dp"
+        android:layout_marginBottom="25dp"
+        android:textSize="19sp"
+        android:fontFamily="@font/poppins"/>
+
+    <EditText
+        android:id="@+id/txtCADEmail"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp" />
+
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/poppins"
+        android:text="Insira seu email:"
+        android:textSize="19sp" />
+    <EditText
+        android:id="@+id/txtCADSenha"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp" />
+
+    <TextView
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/poppins"
+        android:text="Crie sua senha:"
+        android:textSize="19sp" />
+    <EditText
+        android:id="@+id/txtCADCONFSenha"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="60dp" />
+
+    <TextView
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/poppins"
+        android:text="Confirme sua senha:"
+        android:textSize="19sp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finalizar meu cadastro!"
+        android:fontFamily="@font/poppins"
+        android:backgroundTint="@color/aqua"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:id="@+id/btCADCadastro"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voltar"
+        android:fontFamily="@font/poppins"
+        android:backgroundTint="@color/black"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:id="@+id/BtVoltar"/>
+
+</LinearLayout>
