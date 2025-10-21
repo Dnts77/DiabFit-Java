@@ -1,5 +1,6 @@
 package com.example.diabfit;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,11 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.btCadastro){
+        if (v.getId() == R.id.btCadastro) {
             Intent intent = new Intent(MainActivity.this, Cadastro.class);
             startActivity(intent);
         }
+
     }
-
-
 }
