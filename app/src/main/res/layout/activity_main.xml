@@ -41,7 +41,10 @@
         android:layout_height="25dp"
         android:layout_marginLeft="130dp"
         android:layout_marginRight="60dp"
-/>
+        android:hint="Seu nome"
+        android:inputType="text"/>
+        <requestFocus/>
+
     <TextView
         android:layout_width="170dp"
         android:layout_height="40dp"
@@ -56,7 +59,10 @@
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="60dp"
+        android:hint="Seu email"
+        android:inputType="text"/>
+
 
     <TextView
         android:layout_width="170dp"
@@ -72,7 +78,10 @@
         android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="60dp"
+        android:inputType="textPassword"
+        android:hint="Sua senha" />
+        <requestFocus/>
 
     <TextView
         android:layout_width="170dp"
