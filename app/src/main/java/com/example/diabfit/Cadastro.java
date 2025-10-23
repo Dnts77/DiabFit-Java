@@ -16,6 +16,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
 
     Button btCADCadastro, btVoltar;
     EditText txtCADNome, txtCADEmail, txtCADSenha, txtCADCONFSenha;
+    private UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +49,11 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
             Intent intent = new Intent(Cadastro.this, MainActivity.class);
             startActivity(intent);
         }
+    }
+    private void Cadastro(){
+        String nome = txtCADNome.getText().toString().trim();
+        String email = txtCADEmail.getText().toString().trim();
+        String senha = txtCADSenha.getText().toString().trim();
+
     }
 }
