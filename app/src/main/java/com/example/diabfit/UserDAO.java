@@ -26,12 +26,13 @@ public class UserDAO {
     }
 
     // Método para inserir um novo usuário (será usado na tela de Cadastro)
-    public long inserir(String nome, String email, String senha) {
+    public boolean inserir(String nome, String email, String senha) {
         ContentValues values = new ContentValues();
         values.put("nome", nome);
         values.put("email", email);
         values.put("senha", senha);
-        return database.insert("cadastros", null, values);
+        long resultado = database.insert("cadastros", null, values);
+        return resultado != -1;
     }
 
 
