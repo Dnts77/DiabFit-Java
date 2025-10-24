@@ -19,10 +19,12 @@
     <EditText
         android:id="@+id/txtCADNome"
         android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="130dp"
         android:layout_marginRight="60dp"
-        />
+        android:hint="Seu nome"/>
+        <requestFocus/>
+
     <TextView
         android:layout_width="170dp"
         android:layout_height="40dp"
@@ -35,9 +37,11 @@
     <EditText
         android:id="@+id/txtCADEmail"
         android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="60dp"
+        android:hint="Seu email"/>
+
 
     <TextView
         android:layout_width="170dp"
@@ -51,9 +55,10 @@
     <EditText
         android:id="@+id/txtCADSenha"
         android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="60dp"
+        android:hint="Crie uma senha"/>
 
     <TextView
         android:layout_width="170dp"
@@ -67,9 +72,10 @@
     <EditText
         android:id="@+id/txtCADCONFSenha"
         android:layout_width="150dp"
-        android:layout_height="25dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp" />
+        android:layout_marginRight="60dp"
+        />
 
     <TextView
         android:layout_width="190dp"
