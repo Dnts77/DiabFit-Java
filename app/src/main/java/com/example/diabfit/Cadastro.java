@@ -79,7 +79,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
 
         if(CadastroRealizado){
             Toast.makeText(this, "Cadastro realizado com êxito", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(Cadastro.this,) //Falta fazer a outra tela pra isso aqui ter sentido
+            //Intent intent = new Intent(Cadastro.this,) //Falta fazer a outra tela pra isso aqui funcionar
             //startActivity(intent);
             finish();
 
