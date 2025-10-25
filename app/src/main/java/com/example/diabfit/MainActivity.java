@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText txtEmail, txtSenha;
-    Button btCadastro, btEntrar;
+    Button btCadastro, btEntrar, btFGSenha;
     private UserDAO userDAO;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btEntrar = findViewById(R.id.btEntrar);
         txtEmail = findViewById(R.id.txtEmail);
         txtSenha = findViewById(R.id.txtSenha);
+        btFGSenha = findViewById(R.id.btFGSenha);
 
         btCadastro.setOnClickListener(this);
         btEntrar.setOnClickListener(this);
+        btFGSenha.setOnClickListener(this);
 
 
         userDAO = new UserDAO(this);
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v.getId() == R.id.btEntrar) {
             tentarLogin();
+        } else if(v.getId()==R.id.btFGSenha){
+            esqueceuSenha();
         }
     }
 
@@ -74,5 +80,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             txtSenha.setError("Credenciais inválidas");
             txtSenha.requestFocus();
         }
+    }
+    public void esqueceuSenha(){
+       String email = txtEmail.getText().toString().trim();
+
+       if(TextUtils.isEmpty(email)){
+           txtEmail.setError("Digite seu email para recuperar a senha");
+           txtEmail.requestFocus();
+           return;
+       }
+       userDAO.open();
+       String senha = userDAO.getSenhaPorEmail(email);
+       userDAO.close();
+
+       if (senha != null && !senha.isEmpty()){
+           String assunto = "Recuperação de Senha - Equipe DiabFit";
+           String msg = "Olá, você solicitou a recuperação de senha. \n\nSua senha é:" + "\n\n" +senha + "\n\nAtenciosamente, \n\nEquipe DiabFit!";
+
+           EmailManager.sendEmailInBackground(email, assunto, msg);
+           Toast.makeText(this, "E-mail de recuperação enviado com sucesso!", Toast.LENGTH_SHORT).show();
+       } else{
+           Toast.makeText(this, "E-mail não encontrado", Toast.LENGTH_SHORT).show();
+
+       }
     }
 }
