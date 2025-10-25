@@ -116,6 +116,19 @@
         android:id="@+id/btEntrar"
         android:fontFamily="@font/poppins"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginTop="25dp"
+        android:id="@+id/btFGSenha"
+        android:text="Esqueci minha senha"
+        android:textAlignment="center"
+        android:textSize="21sp"
+        android:fontFamily="@font/poppins"
+        android:backgroundTint="@color/aqua"/>
+
 
 
 </LinearLayout>
