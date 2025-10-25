@@ -35,6 +35,41 @@ public class UserDAO {
         return resultado != -1;
     }
 
+    public String getSenhaPorEmail(String email) {
+        String[] columns = {"senha"};
+        String selection = "email = ?";
+        String[] selectionArgs = {email};
+        Cursor cursor = null;
+        String senha = null;
+
+        try {
+            cursor = database.query(
+                    "cadastros",
+                    columns,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int senhaColumnIndex = cursor.getColumnIndex("senha");
+                if (senhaColumnIndex != -1) {
+                    senha = cursor.getString(senhaColumnIndex);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("UserDAO", "Erro ao buscar a senha através do email", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return senha;
+
+    }
+
 
     public boolean checarUsuario(String email, String senha) {
 
@@ -70,4 +105,5 @@ public class UserDAO {
         }
     }
 }
+
 
