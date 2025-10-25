@@ -36,10 +36,7 @@ public class EmailManager {
         });
     }
 
-    /**
-     * Método privado que contém a lógica de envio de e-mail.
-     * Este método lança uma exceção em caso de erro para ser tratada por quem o chama.
-     */
+
     private static void sendEmail(String emailDestinatario, String assunto, String corpoMensagem) throws MessagingException {
 
         Properties props = new Properties();
@@ -63,7 +60,7 @@ public class EmailManager {
         message.setSubject(assunto);
         message.setText(corpoMensagem);
 
-        // 4. Enviar a mensagem
+        // Envia a mensagem
         Transport.send(message);
     }
 }
