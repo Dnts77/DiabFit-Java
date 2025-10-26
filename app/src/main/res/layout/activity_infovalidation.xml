@@ -43,7 +43,7 @@
         android:layout_marginRight="50dp"
         android:id="@+id/SugarLevel"
         android:hint="Nível de açúcar no sangue"
-        android:inputType="text"/>
+        android:inputType="number"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
