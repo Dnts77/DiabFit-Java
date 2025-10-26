@@ -15,8 +15,8 @@ import jakarta.mail.internet.MimeMessage;
 public class EmailManager {
 
 
-    private static final String EMAIL_REMETENTE = "daniel.souzadantas07@gmail.com";
-    private static final String SENHA_REMETENTE = "qubg gtto yqoa llid";
+    private static final String EMAIL_REMETENTE = "equipediabfit@gmail.com";
+    private static final String SENHA_REMETENTE = "bmah oswv grjo jqxa";
 
 
     public static void sendEmailInBackground(String emailDestinatario, String assunto, String corpoMensagem) {
