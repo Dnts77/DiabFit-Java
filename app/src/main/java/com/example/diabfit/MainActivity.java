@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (loginValido) {
             Toast.makeText(this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, InfoValidation.class);
+            startActivity(intent);
 
         } else {
             Toast.makeText(this, "E-mail ou senha incorretos.", Toast.LENGTH_LONG).show();
