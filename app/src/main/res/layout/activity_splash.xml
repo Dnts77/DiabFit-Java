@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginBottom="25dp"
-        android:background="@color/aqua"
+        android:background="@color/teste"
         android:fontFamily="@font/poppins"
         android:text="DiabFit"
         android:textAlignment="center"
@@ -28,19 +28,20 @@
         android:layout_marginLeft="100dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="100dp"
-        android:background="@color/aqua"
+        android:background="@color/teste"
         android:fontFamily="@font/poppins"
-        android:text="DiabFit - Mudando Destinos"
+        android:text="Mudando Destinos"
+        android:textAlignment="center"
         android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btSplash"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="70dp"
         android:layout_marginRight="60dp"
-        android:backgroundTint="@color/aqua"
+        android:backgroundTint="@color/teste"
         android:fontFamily="@font/poppins"
         android:text="Começar minha jornada" />
 </LinearLayout>

@@ -1,113 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/main">
+
+    <!-- Relative Layout WOW -->
 
     <TextView
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/aqua"
+        android:layout_height="wrap_content"
+        android:background="@color/teste"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:paddingVertical="8dp"
         android:text="Crie seu Perfil!"
-        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="40sp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"/>
-    <EditText
-        android:id="@+id/txtCADNome"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:hint="Seu nome"
-        android:inputType="text"/>
-        <requestFocus/>
-
-    <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:text="Insira seu nome:"
-        android:layout_marginLeft="130dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="19sp"
-        android:fontFamily="@font/poppins"/>
-
-    <EditText
-        android:id="@+id/txtCADEmail"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:hint="Seu email"
-        android:inputType="text"/>
+        android:textSize="40sp" />
 
 
     <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"
-        android:text="Insira seu email:"
-        android:textSize="19sp" />
-    <EditText
-        android:id="@+id/txtCADSenha"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:hint="Crie uma senha"
-        android:inputType="textPassword"/>
-
-    <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"
-        android:text="Crie sua senha:"
-        android:textSize="19sp" />
-    <EditText
-        android:id="@+id/txtCADCONFSenha"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:inputType="textPassword"
-        />
-
-    <TextView
-        android:layout_width="190dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="125dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"
-        android:text="Confirme sua senha:"
-        android:textSize="19sp" />
-
-    <Button
+        android:id="@+id/footer_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Finalizar meu cadastro!"
-        android:fontFamily="@font/poppins"
-        android:backgroundTint="@color/aqua"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:id="@+id/btCADCadastro"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        android:fontFamily="@font/poppins"
-        android:backgroundTint="@color/black"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp"
-        android:id="@+id/BtVoltar"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/teste"
+        android:padding="20dp" />
 
-</LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/footer_bar"
+        android:layout_below="@id/header_title"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Insira seu nome:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtCADNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Seu nome"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Insira seu email:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtCADEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Seu email"
+                android:inputType="textEmailAddress" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Crie sua senha:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtCADSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Crie uma senha"
+                android:inputType="textPassword" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Confirme sua senha:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtCADCONFSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:hint="Confirme a senha"
+                android:inputType="textPassword" />
+
+
+            <Button
+                android:id="@+id/btCADCadastro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/teste"
+                android:fontFamily="@font/poppins"
+                android:text="Finalizar meu cadastro!"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/BtVoltar"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Voltar"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

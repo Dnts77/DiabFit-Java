@@ -1,134 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    >
+    android:id="@+id/main"
+    tools:ignore="InvalidId">
+
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/aqua"
+        android:layout_height="wrap_content"
+        android:background="@color/teste"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:paddingVertical="8dp"
         android:text="DiabFit"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="40sp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"/>
-
-    <ImageView
-        android:layout_width="79dp"
-        android:layout_height="78dp"
-        android:src="@drawable/logo"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/shadow1"
-        android:fontFamily="@font/poppins"
-        android:text="Bem vindo!"
-        android:textAlignment="center"
-        android:textSize="28sp" />
-
-    <EditText
-        android:id="@+id/txtNome"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:hint="Seu nome"
-        android:inputType="text"/>
-        <requestFocus/>
-
-    <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:text="Insira seu nome:"
-        android:layout_marginLeft="130dp"
-        android:layout_marginBottom="25dp"
-        android:textSize="19sp"
-        android:fontFamily="@font/poppins"/>
-
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:hint="Seu email"
-        android:inputType="text"/>
+        android:textSize="40sp" />
 
 
-    <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"
-        android:text="Insira seu email:"
-        android:textSize="19sp" />
-    <EditText
-        android:id="@+id/txtSenha"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:inputType="textPassword"
-        android:hint="Sua senha" />
-        <requestFocus/>
-
-    <TextView
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="130dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginBottom="25dp"
-        android:fontFamily="@font/poppins"
-        android:text="Insira sua senha:"
-        android:textSize="19sp" />
-
-    <Button
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="@color/aqua"
-        android:text="Cadastrar"
-        android:textAlignment="center"
-        android:textSize="21sp"
-        android:id="@+id/btCadastro"
-        android:fontFamily="@font/poppins"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
-        android:backgroundTint="@color/black"
-        android:text="Entrar"
-        android:textAlignment="center"
-        android:textSize="21sp"
-        android:id="@+id/btEntrar"
-        android:fontFamily="@font/poppins"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginTop="25dp"
-        android:id="@+id/btFGSenha"
-        android:text="Esqueci minha senha"
-        android:textAlignment="center"
-        android:textSize="21sp"
-        android:fontFamily="@font/poppins"
-        android:backgroundTint="@color/aqua"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="79dp"
+                android:layout_height="78dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="25dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="Bem vindo!"
+                android:textAlignment="center"
+                android:textSize="28sp" />
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Insira seu nome:"
+                android:textSize="19sp" />
 
+            <EditText
+                android:id="@+id/txtNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:hint="Seu nome"
+                android:inputType="text" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Insira seu email:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:hint="Seu email"
+                android:inputType="textEmailAddress" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins"
+                android:text="Insira sua senha:"
+                android:textSize="19sp" />
+
+            <EditText
+                android:id="@+id/txtSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="25dp"
+                android:hint="Sua senha"
+                android:inputType="textPassword" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btCadastro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/teste"
+                    android:fontFamily="@font/poppins"
+                    android:text="Cadastrar"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btEntrar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"
+                    android:text="Entrar"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btFGSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="40dp"
+                android:backgroundTint="@color/aqua"
+                android:fontFamily="@font/poppins"
+                android:text="Esqueci minha senha"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
