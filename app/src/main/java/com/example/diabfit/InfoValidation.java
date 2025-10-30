@@ -2,95 +2,96 @@ package com.example.diabfit;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-public class InfoValidation extends AppCompatActivity implements View.OnClickListener {
+public class InfoValidation extends AppCompatActivity {
 
-    Button btInserir, btVoltar;
-    EditText SugarLevel, Peso, Altura;
 
-    private UserDAO userDAO;
-
+    private EditText etSugarLevel;
+    private EditText etPeso;
+    private EditText etAltura;
+    private Button btAvancar;
+    private Button btVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_infovalidation);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+
+        initComponents();
+        setupListeners();
+    }
+
+
+    private void initComponents() {
+
+        etSugarLevel = findViewById(R.id.SugarLevel);
+        etPeso = findViewById(R.id.Peso);
+        etAltura = findViewById(R.id.Altura);
+        btAvancar = findViewById(R.id.btAvancar);
+        btVoltar = findViewById(R.id.btVoltar);
+    }
+
+
+    private void setupListeners() {
+
+        btVoltar.setOnClickListener(v -> {
+
+            finish();
         });
 
-        btInserir = findViewById(R.id.btInserir);
-        SugarLevel = findViewById(R.id.SugarLevel);
-        Peso = findViewById(R.id.Peso);
-        Altura = findViewById(R.id.Altura);
-        btVoltar = findViewById(R.id.btVoltar);
 
-        btInserir.setOnClickListener(this);
-        btVoltar.setOnClickListener(this);
+        btAvancar.setOnClickListener(v -> {
 
-        userDAO = new UserDAO(this);
-
+            validateAndProceed();
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btInserir) {
-            Inserir();
+
+    private void validateAndProceed() {
+
+        String nivelAcucarStr = etSugarLevel.getText().toString().trim();
+        String pesoStr = etPeso.getText().toString().trim();
+        String alturaStr = etAltura.getText().toString().trim()
+;
+
+        if (nivelAcucarStr.isEmpty()) {
+            Toast.makeText(this, "Por favor, insira seu nível de açúcar.", Toast.LENGTH_SHORT).show();
+            return; // Interrompe a execução do método
         }
-        if(v.getId() == R.id.btVoltar){
-            Intent intent = new Intent(InfoValidation.this, MainActivity.class);
+        if(pesoStr.isEmpty()){
+            Toast.makeText(this, "Por favor, insira sua altura.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(alturaStr.isEmpty()){
+            Toast.makeText(this, "Por favor, insira seu peso.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+
+            int nivelAcucar = Integer.parseInt(nivelAcucarStr);
+            int peso = Integer.parseInt(pesoStr);
+            int altura = Integer.parseInt(alturaStr);
+
+
+            Intent intent = new Intent(InfoValidation.this, Dietas.class);
+
+
+            intent.putExtra("NIVEL_ACUCAR", nivelAcucar);
+            intent.putExtra("PESO", peso);
+            intent.putExtra("ALTURA", altura);
+
+
             startActivity(intent);
-        }
-    }
 
-    public void Inserir() {
-        String sugarLevel = SugarLevel.getText().toString().trim();
-        String peso = Peso.getText().toString().trim();
-        String altura = Altura.getText().toString().trim();
-
-        if (TextUtils.isEmpty(sugarLevel)) {
-            SugarLevel.setError("Este campo é obrigatório");
-            SugarLevel.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(peso)) {
-            Peso.setError("Este campo é obrigatório");
-            Peso.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(altura)) {
-            Altura.setError("Este campo é obrigatório");
-            Altura.requestFocus();
-            return;
-
-        }
-
-        userDAO.open();
-        boolean Inserido = userDAO.infos(sugarLevel, peso, altura);
-        userDAO.close();
-
-        if(Inserido){
-            Toast.makeText(this, "Informações Inseridas com sucesso", Toast.LENGTH_SHORT).show();
-
-        }
-        else{
-            Toast.makeText(this, "Erro ao inserir informações", Toast.LENGTH_SHORT).show();
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Por favor, insira um número válido para o nível de açúcar.", Toast.LENGTH_SHORT).show();
         }
     }
 }
