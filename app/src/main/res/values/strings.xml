@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DiabFit</string>
+    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="navigation_drawer_close">Fechar menu</string>
 </resources>
