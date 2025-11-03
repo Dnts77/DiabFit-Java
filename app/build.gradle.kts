@@ -49,4 +49,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(libs.javax.mail)
     implementation(libs.javax.activation)
+    implementation("com.google.android.material:material:1.13.0")
 }
