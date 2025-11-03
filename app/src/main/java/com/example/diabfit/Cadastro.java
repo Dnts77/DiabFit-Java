@@ -46,12 +46,14 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    //função que faz o botão de Voltar funcionar
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.BtVoltar) {
+
+
             Intent intent = new Intent(Cadastro.this, MainActivity.class);
             startActivity(intent);
+            finish();
         } else if (v.getId() == R.id.btCADCadastro) {
             Cadastrar();
         }
@@ -63,28 +65,39 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         String senha = txtCADSenha.getText().toString().trim();
         String confSenha = txtCADCONFSenha.getText().toString().trim();
 
+        if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(!senha.equals(confSenha)){
             Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()){
-            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         userDAO.open();
-        boolean CadastroRealizado = userDAO.inserir(nome, email, senha);
+        boolean cadastroRealizado = userDAO.inserir(nome, email, senha);
         userDAO.close();
 
-        if(CadastroRealizado){
-            Toast.makeText(this, "Cadastro realizado com êxito", Toast.LENGTH_SHORT).show();
+
+        if(cadastroRealizado){
+            Toast.makeText(this, "Cadastro realizado com êxito!", Toast.LENGTH_SHORT).show();
+
+
+            Intent intent = new Intent(Cadastro.this, InfoValidation.class);
+
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+
+            startActivity(intent);
+
+
             finish();
 
-        }
-        else{
-            Toast.makeText(this, "Erro ao realizar o cadastro", Toast.LENGTH_SHORT).show();
+        } else {
 
+            Toast.makeText(this, "Erro ao realizar o cadastro. O email já pode estar em uso.", Toast.LENGTH_LONG).show();
         }
 
     }

@@ -1,25 +1,28 @@
 package com.example.diabfit;
 
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.widget.Button;
+
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class Dietas extends AppCompatActivity {
-
 
     private TextView tvNivelAcucarInfo;
     private TextView tvOpcaoCafeDaManha;
     private TextView tvOpcaoAlmoco;
     private TextView tvOpcaoJantar;
-    private Button btVoltar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dietas);
-
 
         initComponents();
         setupListeners();
@@ -28,16 +31,21 @@ public class Dietas extends AppCompatActivity {
 
 
     private void initComponents() {
+
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_dietas);
         tvNivelAcucarInfo = findViewById(R.id.tvNivelAcucarInfo);
         tvOpcaoCafeDaManha = findViewById(R.id.tvOpcaoCafeDaManha);
         tvOpcaoAlmoco = findViewById(R.id.tvOpcaoAlmoco);
         tvOpcaoJantar = findViewById(R.id.tvOpcaoJantar);
-        btVoltar = findViewById(R.id.btVoltar);
+
     }
 
 
     private void setupListeners() {
-        btVoltar.setOnClickListener(v -> {
+
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_dietas);
+        toolbar.setNavigationOnClickListener(v -> {
+
             finish();
         });
     }
@@ -45,20 +53,21 @@ public class Dietas extends AppCompatActivity {
 
     private void loadDietData() {
 
-        int nivelAcucar = getIntent().getIntExtra("NIVEL_ACUCAR", -1);
-        int peso = getIntent().getIntExtra("PESO", -1);
-        int altura = getIntent().getIntExtra("ALTURA", -1);
+        SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+
+        int nivelAcucar = prefs.getInt("NIVEL_ACUCAR", -1);
+        int peso = prefs.getInt("PESO", -1);
+        int altura = prefs.getInt("ALTURA", -1);
 
 
         if (nivelAcucar != -1) {
-
             carregarDietas(nivelAcucar, peso, altura);
         } else {
-
             tvNivelAcucarInfo.setText("Nível de açúcar não informado.");
             carregarDietaPadrao();
         }
     }
+
 
 
     private void carregarDietas(int nivelAcucar, int peso, int altura) {
@@ -74,7 +83,7 @@ public class Dietas extends AppCompatActivity {
             status = "Pré-diabetes";
             setDietaPreDiabetes();
         }
-         else {
+        else {
             status = "Alto (Hiperglicemia)";
             setDietaHiperglicemia();
         }
@@ -82,9 +91,6 @@ public class Dietas extends AppCompatActivity {
         tvNivelAcucarInfo.setText(String.format(Locale.getDefault(), "Nível de Açúcar: %d mg/dL - %s", nivelAcucar, status));
     }
 
-
-
-    // São exemplos, o melhor a se fazer é consultar um nutricionista.
     private void setDietaHipoglicemia() {
         tvOpcaoCafeDaManha.setText("• 1 copo de suco de laranja natural (rápida absorção)\n• 1 fatia de pão integral com queijo branco.");
         tvOpcaoAlmoco.setText("• Salada de folhas verdes\n• 1 filé de frango grelhado\n• 2 colheres de sopa de arroz integral\n• 1 porção de legumes cozidos.");

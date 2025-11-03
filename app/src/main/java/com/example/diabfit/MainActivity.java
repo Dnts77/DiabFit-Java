@@ -1,5 +1,9 @@
 package com.example.diabfit;
 
+// 1. ADICIONAR IMPORTAÇÕES NECESSÁRIAS
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,13 +14,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText txtEmail, txtSenha;
     Button btCadastro, btEntrar, btFGSenha;
     private UserDAO userDAO;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btCadastro.setOnClickListener(this);
         btEntrar.setOnClickListener(this);
         btFGSenha.setOnClickListener(this);
-
 
         userDAO = new UserDAO(this);
     }
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = txtEmail.getText().toString().trim();
         String senha = txtSenha.getText().toString().trim();
 
-
         if (TextUtils.isEmpty(email)) {
             txtEmail.setError("Este campo é obrigatório");
             txtEmail.requestFocus();
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-
         userDAO.open();
         boolean loginValido = userDAO.checarUsuario(email, senha);
         userDAO.close();
@@ -74,36 +74,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (loginValido) {
             Toast.makeText(this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, InfoValidation.class);
+
+
+            SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+            boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
+
+            Intent intent;
+            if (isSetupComplete) {
+
+                intent = new Intent(MainActivity.this, Home.class);
+            } else {
+
+                intent = new Intent(MainActivity.this, InfoValidation.class);
+            }
+
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
             startActivity(intent);
+            finish();
 
         } else {
             Toast.makeText(this, "E-mail ou senha incorretos.", Toast.LENGTH_LONG).show();
             txtSenha.setError("Credenciais inválidas");
             txtSenha.requestFocus();
         }
+
     }
+
     public void esqueceuSenha(){
-       String email = txtEmail.getText().toString().trim();
+        String email = txtEmail.getText().toString().trim();
 
-       if(TextUtils.isEmpty(email)){
-           txtEmail.setError("Digite seu email para recuperar a senha");
-           txtEmail.requestFocus();
-           return;
-       }
-       userDAO.open();
-       String senha = userDAO.getSenhaPorEmail(email);
-       userDAO.close();
+        if(TextUtils.isEmpty(email)){
+            txtEmail.setError("Digite seu email para recuperar a senha");
+            txtEmail.requestFocus();
+            return;
+        }
+        userDAO.open();
+        String senha = userDAO.getSenhaPorEmail(email);
+        userDAO.close();
 
-       if (senha != null && !senha.isEmpty()){
-           String assunto = "Recuperação de Senha - Equipe DiabFit";
-           String msg = "Olá, você solicitou a recuperação de senha. \n\nSua senha é:" + "\n\n" +senha + "\n\nAtenciosamente, \n\nEquipe DiabFit!";
+        if (senha != null && !senha.isEmpty()){
+            String assunto = "Recuperação de Senha - Equipe DiabFit";
+            String msg = "Olá, você solicitou a recuperação de senha. \n\nSua senha é:" + "\n\n" +senha + "\n\nAtenciosamente, \n\nEquipe DiabFit!";
 
-           EmailManager.sendEmailInBackground(email, assunto, msg);
-           Toast.makeText(this, "E-mail de recuperação enviado com sucesso!", Toast.LENGTH_SHORT).show();
-       } else{
-           Toast.makeText(this, "E-mail não encontrado", Toast.LENGTH_SHORT).show();
-
-       }
+            EmailManager.sendEmailInBackground(email, assunto, msg);
+            Toast.makeText(this, "E-mail de recuperação enviado com sucesso!", Toast.LENGTH_SHORT).show();
+        } else{
+            Toast.makeText(this, "E-mail não encontrado", Toast.LENGTH_SHORT).show();
+        }
     }
 }

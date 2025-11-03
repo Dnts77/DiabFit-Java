@@ -1,12 +1,16 @@
 package com.example.diabfit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 
 public class InfoValidation extends AppCompatActivity {
 
@@ -52,46 +56,60 @@ public class InfoValidation extends AppCompatActivity {
         });
     }
 
-
     private void validateAndProceed() {
-
         String nivelAcucarStr = etSugarLevel.getText().toString().trim();
         String pesoStr = etPeso.getText().toString().trim();
-        String alturaStr = etAltura.getText().toString().trim()
-;
+        String alturaStr = etAltura.getText().toString().trim();
+
 
         if (nivelAcucarStr.isEmpty()) {
             Toast.makeText(this, "Por favor, insira seu nível de açúcar.", Toast.LENGTH_SHORT).show();
-            return; // Interrompe a execução do método
-        }
-        if(pesoStr.isEmpty()){
-            Toast.makeText(this, "Por favor, insira sua altura.", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(alturaStr.isEmpty()){
+        if (pesoStr.isEmpty()) {
+
             Toast.makeText(this, "Por favor, insira seu peso.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (alturaStr.isEmpty()) {
+
+            Toast.makeText(this, "Por favor, insira sua altura.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
-
             int nivelAcucar = Integer.parseInt(nivelAcucarStr);
             int peso = Integer.parseInt(pesoStr);
             int altura = Integer.parseInt(alturaStr);
 
 
-            Intent intent = new Intent(InfoValidation.this, Dietas.class);
 
 
-            intent.putExtra("NIVEL_ACUCAR", nivelAcucar);
-            intent.putExtra("PESO", peso);
-            intent.putExtra("ALTURA", altura);
+            SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
 
 
+            editor.putInt("NIVEL_ACUCAR", nivelAcucar);
+            editor.putInt("PESO", peso);
+            editor.putInt("ALTURA", altura);
+            editor.putBoolean("isSetupComplete", true);
+            editor.apply();
+
+
+            Intent intent = new Intent(InfoValidation.this, Home.class);
             startActivity(intent);
 
+
+            finish();
+
+
+
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Por favor, insira um número válido para o nível de açúcar.", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(this, "Por favor, insira números válidos nos campos.", Toast.LENGTH_SHORT).show();
         }
     }
 }
+
+
+
