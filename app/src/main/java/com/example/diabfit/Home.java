@@ -50,6 +50,14 @@ public class Home extends AppCompatActivity {
                     Intent intent = new Intent(Home.this, Dietas.class);
                     startActivity(intent);
                 }
+                else if(itemId == R.id.nav_workouts){
+                    Intent intent = new Intent(Home.this, Treinos.class);
+                    startActivity(intent);
+                }
+                else if(itemId == R.id.nav_profile){
+                    Intent intent = new Intent(Home.this, InfoValidation.class);
+                    startActivity(intent);
+                }
 
             }, 250);
 
