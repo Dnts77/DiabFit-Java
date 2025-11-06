@@ -11,7 +11,7 @@
         android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teste"
+        android:background="@color/green"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:paddingVertical="8dp"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/teste"
+        android:background="@color/green"
         android:padding="20dp" />
 
 
@@ -113,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/teste"
+                android:backgroundTint="@color/green"
                 android:fontFamily="@font/poppins"
                 android:text="Finalizar meu cadastro!"
                 android:textSize="16sp" />

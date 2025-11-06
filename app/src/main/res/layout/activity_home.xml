@@ -23,7 +23,7 @@
                 android:id="@+id/top_app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/teste"
+                android:background="@color/green"
                 app:title="DiabFit"
                 android:fontFamily="@font/poppins"
                 app:titleTextColor="@color/white"

@@ -17,7 +17,7 @@
             android:id="@+id/top_app_bar_treinos"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:backgroundTint="@color/teste"
+            android:backgroundTint="@color/green"
             app:title="Plano de Treinos"
             app:navigationIcon="@drawable/ic_arrow_back"
             style="@style/Widget.MaterialComponents.Toolbar.Primary" />
