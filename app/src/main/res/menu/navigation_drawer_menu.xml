@@ -5,6 +5,15 @@
             android:id="@+id/nav_diets"
             android:icon="@drawable/ic_menu"
             android:title="Dietas" />
+        <item
+            android:id="@+id/nav_workouts"
+            android:icon="@drawable/ic_workouts"
+            android:title="Treinos"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Atualizar minhas informações"/>
+
 
     </group>
 </menu>
