@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="315dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/logo_v2" />
+        android:src="@drawable/logo2" />
 
     <TextView
         android:layout_width="match_parent"

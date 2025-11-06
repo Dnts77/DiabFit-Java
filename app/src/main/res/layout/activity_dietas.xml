@@ -9,7 +9,7 @@
     android:background="@android:color/white"
     tools:context=".Dietas">
 
-    <!-- 1. SUBSTITUIÇÃO: Sai o TextView, entra a MaterialToolbar -->
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
