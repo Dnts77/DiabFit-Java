@@ -25,6 +25,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/teste"
                 app:title="DiabFit"
+                android:fontFamily="@font/poppins"
                 app:titleTextColor="@color/white"
                 app:navigationIcon="@drawable/ic_menu" />
         </com.google.android.material.appbar.AppBarLayout>
