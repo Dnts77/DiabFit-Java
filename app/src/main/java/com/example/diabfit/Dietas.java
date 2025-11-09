@@ -56,12 +56,11 @@ public class Dietas extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
 
         int nivelAcucar = prefs.getInt("NIVEL_ACUCAR", -1);
-        int peso = prefs.getInt("PESO", -1);
-        int altura = prefs.getInt("ALTURA", -1);
+
 
 
         if (nivelAcucar != -1) {
-            carregarDietas(nivelAcucar, peso, altura);
+            carregarDietas(nivelAcucar);
         } else {
             tvNivelAcucarInfo.setText("Nível de açúcar não informado.");
             carregarDietaPadrao();
@@ -70,7 +69,7 @@ public class Dietas extends AppCompatActivity {
 
 
 
-    private void carregarDietas(int nivelAcucar, int peso, int altura) {
+    private void carregarDietas(int nivelAcucar) {
         String status;
 
         if (nivelAcucar < 70) {
