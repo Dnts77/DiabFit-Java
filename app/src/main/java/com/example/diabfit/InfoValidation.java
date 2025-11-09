@@ -79,8 +79,8 @@ public class InfoValidation extends AppCompatActivity {
 
         try {
             int nivelAcucar = Integer.parseInt(nivelAcucarStr);
-            int peso = Integer.parseInt(pesoStr);
-            int altura = Integer.parseInt(alturaStr);
+            float peso = Float.parseFloat(pesoStr);
+            float altura = Float.parseFloat(alturaStr);
 
 
 
@@ -90,8 +90,8 @@ public class InfoValidation extends AppCompatActivity {
 
 
             editor.putInt("NIVEL_ACUCAR", nivelAcucar);
-            editor.putInt("PESO", peso);
-            editor.putInt("ALTURA", altura);
+            editor.putFloat("PESO", peso);
+            editor.putFloat("ALTURA", altura);
             editor.putBoolean("isSetupComplete", true);
             editor.apply();
 
