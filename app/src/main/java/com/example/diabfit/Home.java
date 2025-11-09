@@ -1,11 +1,15 @@
 package com.example.diabfit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -46,13 +50,31 @@ public class Home extends AppCompatActivity {
 
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 int itemId = menuItem.getItemId();
+
                 if (itemId == R.id.nav_diets) {
                     Intent intent = new Intent(Home.this, Dietas.class);
                     startActivity(intent);
                 }
                 else if(itemId == R.id.nav_workouts){
-                    Intent intent = new Intent(Home.this, Treinos.class);
-                    startActivity(intent);
+
+                    SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+
+                    float peso = prefs.getFloat("PESO", 0f);
+                    float altura = prefs.getFloat("ALTURA", 0f);
+
+                    if(peso > 0 && altura > 0){
+                        float alturaMetros = altura / 100.0f;
+
+                        float imc = peso / (alturaMetros * alturaMetros);
+
+                        Intent intent = new Intent(Home.this, Treinos.class);
+                        intent.putExtra("USER_IMC", imc);
+                        startActivity(intent);
+
+                    }
+                    else{
+                        Toast.makeText(this, "Por favor, insira seu peso e altura.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else if(itemId == R.id.nav_profile){
                     Intent intent = new Intent(Home.this, InfoValidation.class);
