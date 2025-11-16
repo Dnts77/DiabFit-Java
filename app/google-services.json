@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "754643304970",
+    "project_id": "diabfit-b0d2a",
+    "storage_bucket": "diabfit-b0d2a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754643304970:android:02b00f2740f0a2953515f3",
+        "android_client_info": {
+          "package_name": "com.example.diabfit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeKmOKHYE3munbntTe7Id7ej2eBxUN3SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
