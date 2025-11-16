@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText txtEmail, txtSenha;
     Button btCadastro, btEntrar, btFGSenha;
     private UserDAO userDAO;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtEmail = findViewById(R.id.txtEmail);
         txtSenha = findViewById(R.id.txtSenha);
         btFGSenha = findViewById(R.id.btFGSenha);
+
+        mAuth = FirebaseAuth.getInstance();
 
         btCadastro.setOnClickListener(this);
         btEntrar.setOnClickListener(this);
@@ -102,26 +107,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void esqueceuSenha(){
+    public void esqueceuSenha() {
         String email = txtEmail.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             txtEmail.setError("Digite seu email para recuperar a senha");
             txtEmail.requestFocus();
             return;
         }
-        userDAO.open();
-        String senha = userDAO.getSenhaPorEmail(email);
-        userDAO.close();
 
-        if (senha != null && !senha.isEmpty()){
-            String assunto = "Recuperação de Senha - Equipe DiabFit";
-            String msg = "Olá, você solicitou a recuperação de senha. \n\nSua senha é:" + "\n\n" +senha + "\n\nAtenciosamente, \n\nEquipe DiabFit!";
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(MainActivity.this, "E-mail enviado com sucesso para" +email, Toast.LENGTH_LONG).show();
+            } else{
+                Toast.makeText(MainActivity.this, "Erro ao enviar e-mail", Toast.LENGTH_LONG).show();
+            }
+        });
 
-            EmailManager.sendEmailInBackground(email, assunto, msg);
-            Toast.makeText(this, "E-mail de recuperação enviado com sucesso!", Toast.LENGTH_SHORT).show();
-        } else{
-            Toast.makeText(this, "E-mail não encontrado", Toast.LENGTH_SHORT).show();
-        }
-    }
+    };
 }
