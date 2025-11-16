@@ -11,6 +11,8 @@ public class UserDAO {
     private final AppDatabase dbHelper;
     private SQLiteDatabase database;
 
+
+
     public UserDAO(Context context) {
         dbHelper = new AppDatabase(context);
     }
@@ -26,13 +28,21 @@ public class UserDAO {
     }
 
     // Método para inserir um novo usuário (será usado na tela de Cadastro)
-    public boolean inserir(String nome, String email, String senha) {
+    public int inserir(String nome, String email, String senha) {
+        if(checarEmail(email)){
+            return 0;
+        }
+
         ContentValues values = new ContentValues();
         values.put("nome", nome);
         values.put("email", email);
         values.put("senha", senha);
         long resultado = database.insert("cadastros", null, values);
-        return resultado != -1;
+
+        if(resultado == -1){
+            return -1; //Deu ruim
+        }
+        return 1; //Sucesso
     }
 
     // Método para inserir as informações do usuário (na tela de informações)
@@ -50,6 +60,28 @@ public class UserDAO {
         return resultado != -1;
     }
 
+    public boolean checarEmail(String email){
+        Cursor cursor = null;
+        try{
+           cursor = database.query(
+                   "cadastros",
+                   new String[]{"email"},
+                   "email = ?",
+                   new String[]{email},
+                   null,
+                   null,
+                   null
+           );
+           return cursor.getCount() > 0;
+        } catch(Exception e){
+            Log.e("Email já cadastrado", String.valueOf(e));
+            return false;
+        } finally{
+            if(cursor != null){
+                cursor.close();
+            }
+        }
+    }
 
     public String getSenhaPorEmail(String email) {
         String[] columns = {"senha"};

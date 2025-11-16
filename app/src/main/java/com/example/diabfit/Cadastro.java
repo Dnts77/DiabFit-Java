@@ -76,29 +76,32 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         }
 
         userDAO.open();
-        boolean cadastroRealizado = userDAO.inserir(nome, email, senha);
+        int cadastroRealizado = userDAO.inserir(nome, email, senha);
         userDAO.close();
 
 
-        if(cadastroRealizado){
-            Toast.makeText(this, "Cadastro realizado com êxito!", Toast.LENGTH_SHORT).show();
+        switch(cadastroRealizado){
+            case 1: //Deu certo
+                Toast.makeText(this, "Cadastro realizado com êxito!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Cadastro.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                break;
+
+            case 0: //O Email já existe
+                Toast.makeText(this, "Erro ao realizar o cadastro. O email já pode estar em uso.", Toast.LENGTH_LONG).show();
+                txtCADEmail.setError("Email já cadastrado");
+                break;
+
+            case -1: //deu ruim
+                default:
+                    Toast.makeText(this, "Erro ao realizar o cadastro. Tente novamente.", Toast.LENGTH_LONG).show();
+                    break;
 
 
-            Intent intent = new Intent(Cadastro.this, InfoValidation.class);
 
 
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-
-            startActivity(intent);
-
-
-            finish();
-
-        } else {
-
-            Toast.makeText(this, "Erro ao realizar o cadastro. O email já pode estar em uso.", Toast.LENGTH_LONG).show();
         }
-
     }
 }
