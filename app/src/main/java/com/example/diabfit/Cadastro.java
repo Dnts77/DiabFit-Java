@@ -13,6 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Cadastro extends AppCompatActivity implements View.OnClickListener {
 
     Button btCADCadastro, btVoltar;
@@ -75,33 +79,36 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
-        userDAO.open();
-        int cadastroRealizado = userDAO.inserir(nome, email, senha);
-        userDAO.close();
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                String userId = firebaseUser.getUid();
 
 
-        switch(cadastroRealizado){
-            case 1: //Deu certo
-                Toast.makeText(this, "Cadastro realizado com êxito!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Cadastro.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                userDAO.open();
+                userDAO.PerfilUsuario( userId, nome, email);
+                userDAO.close();
+
+                Toast.makeText(this, "Cadastro realizado com êxito", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Cadastro.this, InfoValidation.class);
                 startActivity(intent);
                 finish();
-                break;
 
-            case 0: //O Email já existe
-                Toast.makeText(this, "Erro ao realizar o cadastro. O email já pode estar em uso.", Toast.LENGTH_LONG).show();
-                txtCADEmail.setError("Email já cadastrado");
-                break;
+            } else{
+                try{
+                    throw task.getException();
+                } catch (FirebaseAuthUserCollisionException e){
+                    Toast.makeText(this, "E-mail já cadastrado", Toast.LENGTH_SHORT).show();
+                    txtCADEmail.setError("E-mail já em uso");
+                    txtCADEmail.requestFocus();
 
-            case -1: //deu ruim
-                default:
-                    Toast.makeText(this, "Erro ao realizar o cadastro. Tente novamente.", Toast.LENGTH_LONG).show();
-                    break;
-
-
-
-
-        }
+                } catch (Exception e){
+                    Toast.makeText(this, "Erro ao cadastrar usuário:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

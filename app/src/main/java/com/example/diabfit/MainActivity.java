@@ -72,38 +72,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        userDAO.open();
-        boolean loginValido = userDAO.checarUsuario(email, senha);
-        userDAO.close();
+        mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(this, task -> {
+            if(task.isSuccessful()){
+                Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
 
+                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+                boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
 
-        if (loginValido) {
-            Toast.makeText(this, "Login efetuado com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent intent;
+                if(isSetupComplete) {
+                    intent = new Intent(MainActivity.this, Home.class);
+                } else{
+                    intent = new Intent(MainActivity.this, InfoValidation.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
 
-
-            SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
-            boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
-
-            Intent intent;
-            if (isSetupComplete) {
-
-                intent = new Intent(MainActivity.this, Home.class);
             } else {
+                Toast.makeText(this, "Algo deu errado", Toast.LENGTH_SHORT).show();
 
-                intent = new Intent(MainActivity.this, InfoValidation.class);
+
             }
+        });
 
-
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-            startActivity(intent);
-            finish();
-
-        } else {
-            Toast.makeText(this, "E-mail ou senha incorretos.", Toast.LENGTH_LONG).show();
-            txtSenha.setError("Credenciais inválidas");
-            txtSenha.requestFocus();
-        }
 
     }
 
@@ -118,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(MainActivity.this, "E-mail enviado com sucesso para" +email, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "E-mail enviado com sucesso para" + email, Toast.LENGTH_LONG).show();
             } else{
                 Toast.makeText(MainActivity.this, "Erro ao enviar e-mail", Toast.LENGTH_LONG).show();
             }

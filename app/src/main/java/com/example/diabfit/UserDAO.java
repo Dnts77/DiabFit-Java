@@ -28,21 +28,15 @@ public class UserDAO {
     }
 
     // Método para inserir um novo usuário (será usado na tela de Cadastro)
-    public int inserir(String nome, String email, String senha) {
-        if(checarEmail(email)){
-            return 0;
-        }
-
+    public boolean PerfilUsuario(String userId, String email, String nome) {
         ContentValues values = new ContentValues();
+        values.put("firebase_uid", userId);
         values.put("nome", nome);
         values.put("email", email);
-        values.put("senha", senha);
-        long resultado = database.insert("cadastros", null, values);
 
-        if(resultado == -1){
-            return -1; //Deu ruim
-        }
-        return 1; //Sucesso
+        long resultado = database.insertWithOnConflict("cadastros", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+
+        return resultado != -1;
     }
 
     // Método para inserir as informações do usuário (na tela de informações)
@@ -60,65 +54,12 @@ public class UserDAO {
         return resultado != -1;
     }
 
-    public boolean checarEmail(String email){
-        Cursor cursor = null;
-        try{
-           cursor = database.query(
-                   "cadastros",
-                   new String[]{"email"},
-                   "email = ?",
-                   new String[]{email},
-                   null,
-                   null,
-                   null
-           );
-           return cursor.getCount() > 0;
-        } catch(Exception e){
-            Log.e("Email já cadastrado", String.valueOf(e));
-            return false;
-        } finally{
-            if(cursor != null){
-                cursor.close();
-            }
-        }
-    }
 
 
 
 
-    public boolean checarUsuario(String email, String senha) {
-
-        String[] columns = {"email"};
-
-        String selection = "email = ? AND senha = ?";
-
-        String[] selectionArgs = {email, senha};
-
-        Cursor cursor = null;
-        try {
-            cursor = database.query(
-                    "cadastros",
-                    columns,
-                    selection,
-                    selectionArgs,
-                    null,
-                    null,
-                    null
-            );
 
 
-            int count = cursor.getCount();
-            return count > 0;
-
-        } catch (Exception e) {
-            Log.e("UserDAO", "Erro ao checar usuário", e);
-            return false;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
 }
 
 
