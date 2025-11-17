@@ -15,6 +15,9 @@
         android:theme="@style/Theme.DiabFit"
         tools:targetApi="31">
         <activity
+            android:name=".Perfil"
+            android:exported="false" />
+        <activity
             android:name=".Treinos"
             android:exported="false" />
         <activity

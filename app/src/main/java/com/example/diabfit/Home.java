@@ -76,12 +76,22 @@ public class Home extends AppCompatActivity {
                         Toast.makeText(this, "Por favor, insira seu peso e altura.", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else if(itemId == R.id.nav_profile){
+                else if(itemId == R.id.nav_infos){
                     Intent intent = new Intent(Home.this, InfoValidation.class);
+                    startActivity(intent);
+                }
+                else if(itemId == R.id.nav_sair){
+                    finishAffinity();
+                    System.exit(0);
+                }
+                else if(itemId == R.id.nav_perfil){
+                    Intent intent = new Intent(Home.this, Perfil.class);
                     startActivity(intent);
                 }
 
             }, 250);
+
+            drawerLayout.closeDrawer(GravityCompat.START);
 
             return true;
         });

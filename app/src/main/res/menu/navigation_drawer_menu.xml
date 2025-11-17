@@ -10,9 +10,19 @@
             android:icon="@drawable/ic_workouts"
             android:title="Treinos"/>
         <item
-            android:id="@+id/nav_profile"
+            android:id="@+id/nav_infos"
             android:icon="@drawable/ic_profile"
             android:title="Atualizar minhas informações"/>
+
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_perfil"
+            android:title="Meu perfil"/>
+
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/ic_logout"
+            android:title="Sair do app"/>
 
 
     </group>
