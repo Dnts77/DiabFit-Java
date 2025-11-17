@@ -35,6 +35,16 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <TextView
+                android:id="@+id/tvIMCInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/poppins"
+                android:gravity="center"
+                android:textSize="18sp"
+                tools:text="IMC: 18,5  - Abaixo do Peso" />
+
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
