@@ -39,6 +39,32 @@ public class UserDAO {
         return resultado != -1;
     }
 
+
+    public String getNomePorId(String userId) {
+        String nome = null;
+        Cursor cursor = null;
+        try {
+
+            cursor = database.query("cadastros", new String[]{"nome"},
+                    "firebase_uid = ?", new String[]{userId},
+                    null, null, null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+
+                int nomeIndex = cursor.getColumnIndex("nome");
+                if (nomeIndex != -1) {
+                    nome = cursor.getString(nomeIndex);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return nome;
+    }
+
+
     // Método para inserir as informações do usuário (na tela de informações)
     public boolean infos(String sugarLevel, String peso, String altura){
         ContentValues values = new ContentValues();
