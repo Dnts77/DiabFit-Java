@@ -88,16 +88,21 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
 
 
                 userDAO.open();
-                userDAO.PerfilUsuario( userId, nome, email);
+                boolean sucesso = userDAO.PerfilUsuario( userId, nome, email);
                 userDAO.close();
 
-                Toast.makeText(this, "Cadastro realizado com êxito", Toast.LENGTH_SHORT).show();
+                if(sucesso){
+                    Toast.makeText(this, "Cadastro realizado com êxito", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Cadastro.this, InfoValidation.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-                Intent intent = new Intent(Cadastro.this, InfoValidation.class);
-                startActivity(intent);
-                finish();
+               else {
+                    Toast.makeText(this, "Erro ao cadastrar usuário", Toast.LENGTH_SHORT).show();
+                }
 
-            } else{
+            }else{
                 try{
                     throw task.getException();
                 } catch (FirebaseAuthUserCollisionException e){

@@ -28,7 +28,7 @@ public class UserDAO {
     }
 
     // Método para inserir um novo usuário (será usado na tela de Cadastro)
-    public boolean PerfilUsuario(String userId, String email, String nome) {
+    public boolean PerfilUsuario(String userId, String nome, String email) {
         ContentValues values = new ContentValues();
         values.put("firebase_uid", userId);
         values.put("nome", nome);

@@ -18,10 +18,10 @@ import java.util.Locale;
 
 public class Perfil extends AppCompatActivity {
 
-    // --- Componentes da UI ---
+
     private TextView textViewNome, textViewEmail, textViewPeso, textViewAltura;
 
-    // --- Fontes de Dados ---
+
     private UserDAO userDAO;
     private FirebaseAuth mAuth;
 
@@ -67,11 +67,12 @@ public class Perfil extends AppCompatActivity {
 
 
         String email = firebaseUser.getEmail();
+        String userId = firebaseUser.getUid();
         textViewEmail.setText(email != null ? email : "E-mail não disponível");
 
 
         userDAO.open();
-        String nome = userDAO.getNomePorId(firebaseUser.getUid());
+        String nome = userDAO.getNomePorId(userId);
         userDAO.close();
         textViewNome.setText(nome != null && !nome.isEmpty() ? nome : "Nome não informado");
 
@@ -88,7 +89,7 @@ public class Perfil extends AppCompatActivity {
         }
 
         if (alturaEmMetros > 0) {
-            textViewAltura.setText(String.format(Locale.getDefault(), "%.1f", alturaEmMetros));
+            textViewAltura.setText(String.format(Locale.getDefault(), "%.0f cm", alturaEmMetros));
         } else {
             textViewAltura.setText("Não informada");
         }

@@ -81,8 +81,8 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if(itemId == R.id.nav_sair){
-                    finishAffinity();
-                    System.exit(0);
+                    Intent intent = new Intent(Home.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 else if(itemId == R.id.nav_perfil){
                     Intent intent = new Intent(Home.this, Perfil.class);

@@ -15,6 +15,23 @@
         android:background="@color/green"
         app:titleTextColor="@android:color/white" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo2"
+            android:contentDescription="Logo do App"/>
+
+
+    </LinearLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
