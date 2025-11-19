@@ -1,5 +1,6 @@
 package com.example.diabfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,11 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
             finish();
+        });
+
+        BackToHome.setOnClickListener(v -> {
+           Intent intent = new Intent (AddTaskActivity.this, Home.class);
+            startActivity(intent);
         });
     }
 }
