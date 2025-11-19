@@ -17,11 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class Home extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private FloatingActionButton fabAddTask;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,13 @@ public class Home extends AppCompatActivity {
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        fabAddTask = findViewById(R.id.fab_add_task);
+
+        fabAddTask.setOnClickListener(view ->{
+            Intent intent = new Intent(Home.this, AddTaskActivity.class);
+            startActivity(intent);
+        });
 
 
         navigationView.setNavigationItemSelectedListener(menuItem -> {
@@ -89,12 +99,15 @@ public class Home extends AppCompatActivity {
                     startActivity(intent);
                 }
 
+
             }, 250);
 
             drawerLayout.closeDrawer(GravityCompat.START);
 
             return true;
         });
+
+
 
 
 

@@ -15,6 +15,9 @@
         android:theme="@style/Base.Theme.DiabFit"
         tools:targetApi="31">
         <activity
+            android:name=".AddTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".Perfil"
             android:exported="false" />
         <activity
@@ -25,8 +28,9 @@
             android:exported="true"
             android:theme="@style/Theme.App.Starting">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -37,17 +41,16 @@
             android:exported="false" />
         <activity
             android:name=".InfoValidation"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Cadastro"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
-
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

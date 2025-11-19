@@ -9,42 +9,63 @@
     tools:openDrawer="start">
 
 
-
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/top_app_bar"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/green"
-                app:title="DiabFit"
-                android:fontFamily="@font/poppins"
-                app:titleTextColor="@color/white"
-                app:navigationIcon="@drawable/ic_menu" />
-        </com.google.android.material.appbar.AppBarLayout>
+                android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/top_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/green"
+                    app:title="DiabFit"
+                    android:fontFamily="@font/poppins"
+                    app:titleTextColor="@color/white"
+                    app:navigationIcon="@drawable/ic_menu" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/poppins"
-                android:gravity="center"
-                android:text="Bem-vindo!\nUse o menu para navegar."
-                android:textSize="20sp" />
-        </FrameLayout>
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:text="Bem-vindo!\nUse o menu para navegar."
+                    android:textSize="20sp" />
+            </FrameLayout>
+        </LinearLayout>
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="Adicionar nova tarefa"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/white"
+            android:backgroundTint="@color/green"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
@@ -52,4 +73,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/navigation_drawer_menu" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
