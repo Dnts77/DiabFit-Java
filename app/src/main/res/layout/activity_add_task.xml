@@ -6,17 +6,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".AddTaskActivity"
-    >
+    tools:context=".AddTaskActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nova Tarefa"
+        android:text="Novo Lembrete"
         android:textSize="24sp"
         android:fontFamily="@font/poppins"
         android:layout_marginBottom="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:background="@color/green"
+        android:textColor="@color/white"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descreva seu lembrete"
+            android:inputType="textCapSentences"
+            android:fontFamily="@font/poppins"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data"
+            android:fontFamily="@font/poppins"
+            android:focusable="false"
+            android:clickable="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -24,12 +60,13 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_task"
+            android:id="@+id/edit_text_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descreva sua tarefa"
-            android:inputType="textCapSentences"
-            android:fontFamily="@font/poppins"/>
+            android:hint="Hora"
+            android:fontFamily="@font/poppins"
+            android:focusable="false"
+            android:clickable="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,18 +74,18 @@
         android:id="@+id/button_save_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Salvar Tarefa"
+        android:text="Salvar Lembrete"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/poppins"
         android:backgroundTint="@color/green"/>
 
     <Button
+        android:id="@+id/BackToHome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/BackToHome"
         android:text="Retornar"
         android:fontFamily="@font/poppins"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/green"/>
 
 </LinearLayout>

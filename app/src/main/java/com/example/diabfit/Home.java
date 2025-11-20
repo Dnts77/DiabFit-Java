@@ -98,6 +98,10 @@ public class Home extends AppCompatActivity {
                     Intent intent = new Intent(Home.this, Perfil.class);
                     startActivity(intent);
                 }
+                else if(itemId == R.id.nav_reminders){
+                    Intent intent = new Intent(Home.this, ReminderListActivity.class);
+                    startActivity(intent);
+                }
 
 
             }, 250);

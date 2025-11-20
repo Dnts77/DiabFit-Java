@@ -82,10 +82,39 @@ public class UserDAO {
 
 
 
+    public long insertReminder(String description, long reminderTime, int pendingIntentId) {
+        ContentValues values = new ContentValues();
+        values.put("description", description);
+        values.put("reminder_time", reminderTime);
+        values.put("pending_intent_id", pendingIntentId);
+
+        return database.insert("reminders", null, values);
+    }
 
 
+    public boolean updateReminder(int reminderId, String description, long reminderTime, int pendingIntentId) {
+        ContentValues values = new ContentValues();
+        values.put("description", description);
+        values.put("reminder_time", reminderTime);
+        values.put("pending_intent_id", pendingIntentId);
+
+        int rowsAffected = database.update("reminders", values, "id = ?", new String[]{String.valueOf(reminderId)});
+        return rowsAffected > 0;
+    }
 
 
+    public boolean deleteReminder(int reminderId) {
+        int rowsAffected = database.delete("reminders", "id = ?", new String[]{String.valueOf(reminderId)});
+        return rowsAffected > 0;
+    }
+
+
+    public Cursor getAllReminders() {
+        return database.query("reminders", null, null, null, null, null, "reminder_time ASC");
+    }
+
+
+    public Cursor getReminderById(int reminderId) {
+        return database.query("reminders", null, "id = ?", new String[]{String.valueOf(reminderId)}, null, null, null);
+    }
 }
-
-

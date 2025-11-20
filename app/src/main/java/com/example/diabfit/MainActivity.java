@@ -1,10 +1,13 @@
 package com.example.diabfit;
 
 // 1. ADICIONAR IMPORTAÇÕES NECESSÁRIAS
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -22,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btCadastro, btEntrar, btFGSenha;
     private UserDAO userDAO;
     private FirebaseAuth mAuth;
+
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 101;
 
 
     @Override
@@ -42,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btFGSenha.setOnClickListener(this);
 
         userDAO = new UserDAO(this);
+
+        requestNotificationPermission();
+
     }
 
     @Override
@@ -117,4 +127,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     };
+
+    private void requestNotificationPermission(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(this, "Permissão concedida", Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(this, "Permissão negada. Os lembretes podem não funcionar corretamente", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

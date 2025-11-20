@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AppDatabase extends SQLiteOpenHelper {
 
     private static final String NOME_BANCO = "diabfit_db";
-    private static final int VERSAO = 6;
+    private static final int VERSAO = 7;
     public AppDatabase(Context context) {
         super(context, NOME_BANCO, null, VERSAO);
     }
@@ -29,6 +29,15 @@ public class AppDatabase extends SQLiteOpenHelper {
                 + "altura integer,"
                 + "foreign key(user_uid) references cadastros(firebase_uid))";
         db.execSQL(sql);
+
+
+        sql = "CREATE TABLE reminders ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "description TEXT NOT NULL,"
+                + "reminder_time INTEGER NOT NULL,"
+                + "pending_intent_id INTEGER NOT NULL);";
+        db.execSQL(sql);
+
 
     }
 
