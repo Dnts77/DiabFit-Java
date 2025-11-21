@@ -77,6 +77,20 @@ public class InfoValidation extends AppCompatActivity {
             return;
         }
 
+        if(nivelAcucarStr.length() != 3){
+            Toast.makeText(this, "O nível de açúcar não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(pesoStr.length() != 4){
+            Toast.makeText(this, "O peso não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();//O peso tem um parâmetro diferente para caso o usuário insira valor decimal, o "." conta como um dígito.
+            return;
+        }
+        if(alturaStr.length() != 3){
+            Toast.makeText(this, "A altura não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
         try {
             int nivelAcucar = Integer.parseInt(nivelAcucarStr);
             float peso = Float.parseFloat(pesoStr);
