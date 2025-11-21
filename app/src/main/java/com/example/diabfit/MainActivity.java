@@ -1,6 +1,5 @@
 package com.example.diabfit;
 
-// 1. ADICIONAR IMPORTAÇÕES NECESSÁRIAS
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -86,23 +88,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(task.isSuccessful()){
                 Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
 
-                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
-                boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    String userId = user.getUid();
 
-                Intent intent;
-                if(isSetupComplete) {
-                    intent = new Intent(MainActivity.this, Home.class);
-                } else{
-                    intent = new Intent(MainActivity.this, InfoValidation.class);
+                    SharedPreferences prefs = getSharedPreferences("DiabFitPrefs_" + userId, Context.MODE_PRIVATE);
+                    boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
+
+                    Intent intent;
+                    if(isSetupComplete) {
+                        intent = new Intent(MainActivity.this, Home.class);
+                    } else{
+                        intent = new Intent(MainActivity.this, InfoValidation.class);
+                    }
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
                 }
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                finish();
 
             } else {
-                Toast.makeText(this, "Algo deu errado", Toast.LENGTH_SHORT).show();
-
-
+                Exception exception = task.getException();
+                if (exception instanceof FirebaseAuthInvalidUserException) {
+                    Toast.makeText(MainActivity.this, "Usuário não cadastrado. Por favor, realize o cadastro.", Toast.LENGTH_LONG).show();
+                    txtEmail.setError("Usuário não cadastrado.");
+                    txtEmail.requestFocus();
+                } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+                    Toast.makeText(MainActivity.this, "Credenciais inválidas. Verifique seu e-mail e senha.", Toast.LENGTH_LONG).show();
+                    txtSenha.setError("Senha incorreta.");
+                    txtSenha.requestFocus();
+                } else {
+                    Toast.makeText(MainActivity.this, "Falha no login: " + exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 

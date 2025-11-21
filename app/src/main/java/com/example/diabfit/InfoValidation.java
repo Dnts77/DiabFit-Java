@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
-import android.content.SharedPreferences;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class InfoValidation extends AppCompatActivity {
@@ -20,13 +21,14 @@ public class InfoValidation extends AppCompatActivity {
     private EditText etAltura;
     private Button btAvancar;
     private Button btVoltar;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infovalidation);
 
-
+        mAuth = FirebaseAuth.getInstance();
         initComponents();
         setupListeners();
     }
@@ -98,27 +100,25 @@ public class InfoValidation extends AppCompatActivity {
             float peso = Float.parseFloat(pesoStr);
             float altura = Float.parseFloat(alturaStr);
 
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String userId = user.getUid();
+
+                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs_" + userId, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
 
 
-
-            SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-
-
-            editor.putInt("NIVEL_ACUCAR", nivelAcucar);
-            editor.putFloat("PESO", peso);
-            editor.putFloat("ALTURA", altura);
-            editor.putBoolean("isSetupComplete", true);
-            editor.apply();
+                editor.putInt("NIVEL_ACUCAR", nivelAcucar);
+                editor.putFloat("PESO", peso);
+                editor.putFloat("ALTURA", altura);
+                editor.putBoolean("isSetupComplete", true);
+                editor.apply();
 
 
-            Intent intent = new Intent(InfoValidation.this, Home.class);
-            startActivity(intent);
-
-
-            finish();
-
-
+                Intent intent = new Intent(InfoValidation.this, Home.class);
+                startActivity(intent);
+                finish();
+            }
 
         } catch (NumberFormatException e) {
 
@@ -126,6 +126,3 @@ public class InfoValidation extends AppCompatActivity {
         }
     }
 }
-
-
-
