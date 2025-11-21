@@ -77,16 +77,18 @@ public class InfoValidation extends AppCompatActivity {
             return;
         }
 
-        if(nivelAcucarStr.length() != 3){
-            Toast.makeText(this, "O nível de açúcar não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();
+        if (nivelAcucarStr.length() < 2 || nivelAcucarStr.length() > 3) {
+            Toast.makeText(this, "O nível de açúcar deve ter entre 2 e 3 dígitos.", Toast.LENGTH_LONG).show();
             return;
         }
-        if(pesoStr.length() != 4){
-            Toast.makeText(this, "O peso não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();//O peso tem um parâmetro diferente para caso o usuário insira valor decimal, o "." conta como um dígito.
+
+        if (pesoStr.length() > 4) {
+            Toast.makeText(this, "O peso não pode ter mais de 4 dígitos.", Toast.LENGTH_LONG).show();
             return;
         }
-        if(alturaStr.length() != 3){
-            Toast.makeText(this, "A altura não pode exceder 3 dígitos.", Toast.LENGTH_LONG).show();
+
+        if (alturaStr.length() != 3) {
+            Toast.makeText(this, "A altura deve ter 3 dígitos.", Toast.LENGTH_LONG).show();
             return;
         }
 
