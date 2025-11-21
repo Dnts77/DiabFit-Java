@@ -69,13 +69,31 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         String senha = txtCADSenha.getText().toString().trim();
         String confSenha = txtCADCONFSenha.getText().toString().trim();
 
+        String namePattern = "^[\\p{L} .'-]+$"; //Padrão de nome atualizado também
+        String passwordPattern = "^(?=.*[0-9]).{6,}$"; //Padrão de senha atualizado hehe
+
         if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
             Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        if(!nome.matches(namePattern)){
+            txtCADNome.setError("O nome deve conter apenas letras");
+            txtCADNome.requestFocus();
+            Toast.makeText(this, "Por gentileza, insira um nome válido.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if(!senha.equals(confSenha)){
             Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        if(!senha.matches(passwordPattern)){
+            txtCADSenha.setError("A senha deve conter no mínimo 6 caracteres e conter pelo menos um número!");
+            txtCADSenha.requestFocus();
+            Toast.makeText(this, "A senha não atende aos requisitos.", Toast.LENGTH_LONG).show();
             return;
         }
 
