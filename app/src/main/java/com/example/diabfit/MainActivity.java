@@ -88,23 +88,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(task.isSuccessful()){
                 Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
 
-                FirebaseUser user = mAuth.getCurrentUser();
-                if (user != null) {
-                    String userId = user.getUid();
+                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+                boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
 
-                    SharedPreferences prefs = getSharedPreferences("DiabFitPrefs_" + userId, Context.MODE_PRIVATE);
-                    boolean isSetupComplete = prefs.getBoolean("isSetupComplete", false);
-
-                    Intent intent;
-                    if(isSetupComplete) {
-                        intent = new Intent(MainActivity.this, Home.class);
-                    } else{
-                        intent = new Intent(MainActivity.this, InfoValidation.class);
-                    }
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+                Intent intent;
+                if(isSetupComplete) {
+                    intent = new Intent(MainActivity.this, Home.class);
+                } else{
+                    intent = new Intent(MainActivity.this, InfoValidation.class);
                 }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
 
             } else {
                 Exception exception = task.getException();
@@ -136,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FirebaseAuth.getInstance().sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(MainActivity.this, "E-mail enviado com sucesso para" + email, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "E-mail enviado com sucesso para " + email, Toast.LENGTH_LONG).show();
             } else{
                 Toast.makeText(MainActivity.this, "Erro ao enviar e-mail", Toast.LENGTH_LONG).show();
             }

@@ -102,9 +102,8 @@ public class InfoValidation extends AppCompatActivity {
 
             FirebaseUser user = mAuth.getCurrentUser();
             if (user != null) {
-                String userId = user.getUid();
 
-                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs_" + userId, Context.MODE_PRIVATE);
+                SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
 
 
