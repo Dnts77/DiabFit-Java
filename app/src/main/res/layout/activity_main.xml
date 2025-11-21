@@ -127,7 +127,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/green"
                     android:fontFamily="@font/poppins"
-                    android:text="Cadastrar"
+                    android:text="Cadastro"
                     android:textSize="18sp"
                     android:maxLines="1"/>
 
