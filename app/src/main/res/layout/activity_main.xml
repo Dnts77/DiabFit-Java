@@ -128,7 +128,8 @@
                     android:backgroundTint="@color/green"
                     android:fontFamily="@font/poppins"
                     android:text="Cadastrar"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:maxLines="1"/>
 
                 <Button
                     android:id="@+id/btEntrar"
