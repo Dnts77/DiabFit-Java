@@ -117,4 +117,9 @@ public class UserDAO {
     public Cursor getReminderById(int reminderId) {
         return database.query("reminders", null, "id = ?", new String[]{String.valueOf(reminderId)}, null, null, null);
     }
+
+    public boolean deleteUser(String userId) {
+        int rowsAffected = database.delete("cadastros", "firebase_uid = ?", new String[]{userId});
+        return rowsAffected > 0;
+    }
 }

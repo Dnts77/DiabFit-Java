@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,12 +19,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Locale;
 
 public class Perfil extends AppCompatActivity {
 
+    private static final String TAG = "PerfilActivity";
 
     private TextView textViewNome, textViewEmail, textViewPeso, textViewAltura;
 
@@ -38,17 +41,14 @@ public class Perfil extends AppCompatActivity {
 
         setContentView(R.layout.activity_perfil);
 
-
         MaterialToolbar toolbar = findViewById(R.id.top_app_bar_perfil);
         setSupportActionBar(toolbar);
-
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle("Meu Perfil");
         }
-
 
         textViewNome = findViewById(R.id.textViewNome);
         textViewEmail = findViewById(R.id.textViewEmail);
@@ -63,46 +63,34 @@ public class Perfil extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle("Excluir Conta")
                     .setMessage("Você tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.")
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            excluirConta();
-                        }
-                    })
+                    .setPositiveButton("Sim", (dialog, which) -> excluirConta())
                     .setNegativeButton("Não", null)
                     .show();
         });
-
 
         loadUserProfile();
     }
 
     private void loadUserProfile() {
-
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-
         if (firebaseUser == null) {
             Toast.makeText(this, "Usuário não encontrado.", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
-
         String email = firebaseUser.getEmail();
         String userId = firebaseUser.getUid();
         textViewEmail.setText(email != null ? email : "E-mail não disponível");
-
 
         userDAO.open();
         String nome = userDAO.getNomePorId(userId);
         userDAO.close();
         textViewNome.setText(nome != null && !nome.isEmpty() ? nome : "Nome não informado");
 
-
         SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
         float peso = prefs.getFloat("PESO", 0f);
         float alturaEmMetros = prefs.getFloat("ALTURA", 0f);
-
 
         if (peso > 0) {
             textViewPeso.setText(String.format(Locale.US, "%.1f kg", peso));
@@ -120,17 +108,32 @@ public class Perfil extends AppCompatActivity {
     private void excluirConta() {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
+            String userId = user.getUid();
             user.delete()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Perfil.this, "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            // Limpar dados locais
+                            userDAO.open();
+                            userDAO.deleteUser(userId);
+                            userDAO.close();
+
+                            SharedPreferences prefs = getSharedPreferences("DiabFitPrefs", Context.MODE_PRIVATE);
+                            prefs.edit().clear().apply();
+
+                            Toast.makeText(Perfil.this, "Conta excluída com sucesso.", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(Perfil.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            if (task.getException() instanceof FirebaseAuthRecentLoginRequiredException) {
+                                Toast.makeText(Perfil.this, "Por favor, faça login novamente para excluir sua conta.", Toast.LENGTH_LONG).show();
+
                                 Intent intent = new Intent(Perfil.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
-                                finish();
                             } else {
+                                Log.e(TAG, "Falha ao excluir a conta: " + task.getException());
                                 Toast.makeText(Perfil.this, "Falha ao excluir a conta.", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -138,10 +141,8 @@ public class Perfil extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
